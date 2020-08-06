@@ -7,10 +7,10 @@ import java.util.Random;
 public class Command {
 	
 	public static String CreateCommandParameters(List<String> parameters, String qtyParameters) {
+		Random rParam = new Random();
 		
 		int qty = Integer.parseInt(qtyParameters);
-		
-		Random rParam = new Random();
+		qty = rParam.nextInt(25);
 		
 		HashSet<Integer> addedParameters = new HashSet<Integer>(); 
 		String cmd = "";

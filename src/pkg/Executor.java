@@ -14,7 +14,7 @@ public class Executor {
 	protected static HashMap<Integer, List<String>> RunCommand(String command) {
 		int ret = -1;
 		List<String> exceptions = new ArrayList<>();
-		
+		EsbmcFuzzer.Log.Write("--------------------------------------------------------------");
 		try {
 			ProcessBuilder pb = new ProcessBuilder("sh", "-c", command);
 			
@@ -27,11 +27,22 @@ public class Executor {
 	                new InputStreamReader(p.getInputStream()));
 			
 			while ((s = br.readLine()) != null) {
-				if (s.toLowerCase().contains("exception")) {
+				String temp = s.toLowerCase();
+				
+				if (temp.contains("exception") ||
+						temp.contains("fail") ||
+						temp.contains("warning") ||
+						temp.contains("abort") ||
+						temp.contains("crash") ||
+						temp.contains("erro")) {
 					exceptions.add(s);
 				}
 				
-	        	System.out.println("FUZZER: " + s);
+				if (s.length() > 0) {
+					EsbmcFuzzer.Log.Write(s);
+				}
+
+				System.out.println("FUZZER: " + s);
 	        }
 			
 			br.close();

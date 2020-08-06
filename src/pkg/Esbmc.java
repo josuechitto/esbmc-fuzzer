@@ -25,13 +25,14 @@ public class Esbmc extends Executor {
 				
 				Map.Entry<Integer, List<String>> result = esbmcResult.entrySet().iterator().next();
 				
-				if (result.getKey() != 0 && result.getKey() != Executor.executionError) {
+				if (result.getKey() != 0 && result.getKey() != 1 && result.getKey() != Executor.executionError) {
 					esbmcCmd.setError("" + result.getKey());
 					esbmcCmd.setcFile(csmithFileCommands.get(i).getFilePath());
 					esbmcCmd.setExceptions(result.getValue());
 					errors.add(esbmcCmd);
 				}	
 			}
+			
 		}
 		
 		return errors;

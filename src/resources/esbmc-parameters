@@ -34,9 +34,6 @@ no-library
 binary
 little-endian
 big-endian
-16
-32
-64
 version
 witness-output
 witness-producer

@@ -1,0 +1,1 @@
+-csmith_output_path /home/sidia/release-esbmc/bin/corpus -csmith_path  /home/sidia/csmith/src/csmith -esbmc_path /home/sidia/release-esbmc/bin/esbmc -esbmc_loops_qty 15 -csmith_files_qty 20

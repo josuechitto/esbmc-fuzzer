@@ -9,6 +9,8 @@ import models.EsbmcCommand;
 
 public class EsbmcFuzzer {
 
+	public static Log Log = new Log();
+	
 	public static void main(String[] args) {
 		
 		try {
@@ -25,6 +27,8 @@ public class EsbmcFuzzer {
 			
 			PrintFuzzingResult(errors);
 			
+			EsbmcFuzzer.Log.Close();
+			
 			return;
 			
 		} catch (FileNotFoundException e) {
@@ -38,11 +42,26 @@ public class EsbmcFuzzer {
 	private static void PrintFuzzingResult(List<EsbmcCommand> errors) {
 		
 		errors.forEach(error -> {
+			
+			String ex = "";
+			
+			for (String e : error.getExceptions()) {
+				ex += e + "\n";
+			}
+			
+			EsbmcFuzzer.Log.Write(".C File Path: " + error.getcFile());
+			EsbmcFuzzer.Log.Write("Esbmc Parameters: " + error.getParameter());
+			EsbmcFuzzer.Log.Write("Esbmc Exit Code: " + error.getError());
+			EsbmcFuzzer.Log.Write("Esbmc Exceptions: ");
+			EsbmcFuzzer.Log.Write(ex);
+			EsbmcFuzzer.Log.Write("------------------------------------------------------------------");
+			
 			System.out.println(".C File Path: " + error.getcFile());
 			System.out.println("Esbmc Parameters: " + error.getParameter());
 			System.out.println("Esbmc Exit Code: " + error.getError());
 			System.out.println("Esbmc Exceptions: ");
-			error.getExceptions().forEach(exception -> System.out.println(exception));
+			System.out.println(ex);
+			System.out.println("------------------------------------------------------------------");
 		});
 		
 	}
